@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the paper."
+title: "SOTA: Strategy-level reinforcement learning for options portfolio management"
+abstract: >-
+  Code release for a language-model post-training framework for option strategy
+  selection guided by option-implied return distributions. The policy emits
+  strategy intent in a small domain-specific language; deterministic resolvers
+  map intent to contracts, positions and hedge trades; the reward is realized
+  after-cost portfolio return.
+authors:
+  - family-names: Xie
+    given-names: Yizhen
+version: 1.0.0
+date-released: "2026-09-27"
+repository-code: "https://github.com/JenniceXie/sota-options-rl"
+license: MIT

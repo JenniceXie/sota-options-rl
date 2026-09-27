@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sota-options-rl"
+version = "1.0.0"
+description = "SOTA: strategy-level reinforcement learning for options portfolio management"
+readme = "README.md"
+requires-python = ">=3.10"
+# Deliberately empty: this installs beside a pinned torch/vllm stack for the RL
+# stage, and a hard requirement here is a resolver argument nobody asked for.
+# "No hard dependencies" is not "pure stdlib" -- see the extras.
+dependencies = []
+
+[project.optional-dependencies]
+# Required to take a single environment step. The option chain ships as parquet
+# and only as parquet, so the first chain read needs pyarrow.
+chain = ["pyarrow>=14"]
+# A real token count for the 32,768-token budget. env/tokens.py imports this
+# lazily and refuses rather than falling back to a character heuristic.
+tokens = ["tokenizers>=0.15"]
+# Rebuilding the supervised corpus (writes parquet through pandas).
+corpus = ["pandas>=2.0", "pyarrow>=14"]
+# The supervised-teacher route used to generate trajectories.
+teacher = ["boto3>=1.34"]
+# The GBDT and Logistic baselines (baselines/, fit_package_models.py). The
+# reported classifiers were fitted and run with numpy 2.5.3, scikit-learn 1.9.1
+# and xgboost 3.4.1; no older versions were tested, so no floor is claimed.
+baselines = ["numpy", "scikit-learn", "xgboost"]
+# tests/ render the chat template through transformers, which needs jinja2.
+dev = ["pytest>=8.0", "pyarrow>=14", "pandas>=2.0", "tokenizers>=0.15",
+       "transformers", "jinja2"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "scripts/analysis"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

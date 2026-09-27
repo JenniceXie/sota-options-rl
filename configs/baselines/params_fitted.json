@@ -1,0 +1,139 @@
+{
+ "artifact": "baseline_params.v1",
+ "built": "2026-09-25",
+ "forecast_omitted": "The per-date forecast table (4950 cells, one per trading date and name, 2023-09-01 .. 2025-08-29) is not included: it is computed from licensed daily returns, and with the GARCH parameters below, consecutive cells recover each day's absolute return (up to the 4-SD winsorisation). scripts/analysis/fit_baseline_params.py rebuilds the complete artifact, forecast included, from underlying_market_features and option_delta_point_surface. Because the forecast key is absent, load_params() refuses this file rather than running a GARCH rule that would never trade.",
+ "thresholds": {
+  "garch_ratio": {
+   "lo": 0.91426978,
+   "med": 0.98029942,
+   "hi": 1.11578063,
+   "n": 1220
+  },
+  "wedge": {
+   "lo": -0.02221702,
+   "med": 0.01420117,
+   "hi": 0.05746434,
+   "n": 1220
+  },
+  "term_slope": {
+   "lo": -0.0222413,
+   "med": 0.01085569,
+   "hi": 0.02934946,
+   "n": 1220
+  },
+  "skew": {
+   "lo": 0.011941,
+   "med": 0.02090204,
+   "hi": 0.02773419,
+   "n": 1220
+  },
+  "butterfly": {
+   "lo": 0.0029569,
+   "med": 0.00443534,
+   "hi": 0.00598176,
+   "n": 1220
+  }
+ },
+ "garch": {
+  "specification": "GARCH(1,1), Gaussian QML, variance targeting; pooled (alpha, beta), per-name unconditional variance",
+  "returns": "close-to-close log return = previous_close_to_open + open_to_close",
+  "winsorize_sd": 4.0,
+  "horizon_trading_days": 10,
+  "alpha": 0.06,
+  "beta": 0.762,
+  "persistence": 0.822,
+  "shock_half_life_days": 3.536,
+  "shock_surviving_at_horizon": 0.1408,
+  "loglik": -5094.5204331132845,
+  "n_obs": 3710,
+  "per_name": {
+   "AAPL": {
+    "mu": 0.0006806633859622518,
+    "sd": 0.014011690603175333,
+    "sigma2_bar": 0.00019632747355911192,
+    "ann_uncond_vol": 0.22242869270149526,
+    "n_fit": 371
+   },
+   "AMZN": {
+    "mu": 0.0011605930233416328,
+    "sd": 0.018366073588302816,
+    "sigma2_bar": 0.0003373126590509543,
+    "ann_uncond_vol": 0.29155237965216557,
+    "n_fit": 371
+   },
+   "GOOGL": {
+    "mu": 0.0006025337892815895,
+    "sd": 0.01814663738683808,
+    "sigma2_bar": 0.00032930044844938953,
+    "ann_uncond_vol": 0.2880689379458434,
+    "n_fit": 371
+   },
+   "META": {
+    "mu": 0.0021956867015866383,
+    "sd": 0.020828792351301684,
+    "sigma2_bar": 0.00043383859081364354,
+    "ann_uncond_vol": 0.3306468280280913,
+    "n_fit": 371
+   },
+   "MSFT": {
+    "mu": 0.0005165214507128083,
+    "sd": 0.013256104433035607,
+    "sigma2_bar": 0.00017572430473954627,
+    "ann_uncond_vol": 0.21043413409987854,
+    "n_fit": 371
+   },
+   "MU": {
+    "mu": 0.0007862887151363003,
+    "sd": 0.031168158681630167,
+    "sigma2_bar": 0.000971454115603278,
+    "ann_uncond_vol": 0.49477918017235334,
+    "n_fit": 371
+   },
+   "NVDA": {
+    "mu": 0.0025030578289623314,
+    "sd": 0.031972150532956684,
+    "sigma2_bar": 0.0010222184097020423,
+    "ann_uncond_vol": 0.5075421551407476,
+    "n_fit": 371
+   },
+   "PLTR": {
+    "mu": 0.004676532772900219,
+    "sd": 0.04070654199947952,
+    "sigma2_bar": 0.00165702256155539,
+    "ann_uncond_vol": 0.6461963211841726,
+    "n_fit": 371
+   },
+   "SPY": {
+    "mu": 0.0007469818097486781,
+    "sd": 0.008095421686940229,
+    "sigma2_bar": 6.553585228938218e-05,
+    "ann_uncond_vol": 0.128510835251057,
+    "n_fit": 371
+   },
+   "TSLA": {
+    "mu": 0.0003418725954844352,
+    "sd": 0.03769920689184678,
+    "sigma2_bar": 0.001421230200274268,
+    "ann_uncond_vol": 0.5984563563611933,
+    "n_fit": 371
+   }
+  }
+ },
+ "provenance": {
+  "fit_window": [
+   "2023-09-01",
+   "2025-02-28"
+  ],
+  "test_start": "2025-03-03",
+  "calibration_dates": 122,
+  "calibration_window": [
+   "2024-09-03",
+   "2025-02-28"
+  ],
+  "test_dates": 124,
+  "surface_dataset": "option_delta_point_surface",
+  "equity_dataset": "underlying_market_features",
+  "threshold_rule": "pooled terciles (p33 / p67) over calibration dates x names",
+  "note": "Thresholds and GARCH parameters use calibration dates only. The forecast table spans every date, but the forecast for date t consumes returns up to and including t and no further."
+ }
+}

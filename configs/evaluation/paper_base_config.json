@@ -1,0 +1,284 @@
+{
+  "version": "env_config.v1",
+  "universe": {
+    "observed": [
+      "AAPL",
+      "AMZN",
+      "GOOGL",
+      "META",
+      "MSFT",
+      "MU",
+      "NVDA",
+      "PLTR",
+      "TSLA",
+      "SPY"
+    ],
+    "tradeable": [
+      "AAPL",
+      "AMZN",
+      "GOOGL",
+      "META",
+      "MSFT",
+      "MU",
+      "NVDA",
+      "PLTR",
+      "TSLA",
+      "SPY"
+    ],
+    "context_aliases": [
+      [
+        "GOOGL",
+        [
+          "GOOGL",
+          "GOOG"
+        ]
+      ],
+      [
+        "SPY",
+        [
+          "SPY",
+          "VOO",
+          "IVV",
+          "GSPC",
+          "ES"
+        ]
+      ]
+    ]
+  },
+  "grid": {
+    "decision_sessions": [
+      "PM"
+    ],
+    "mark_sessions": [
+      "AM",
+      "PM"
+    ],
+    "hedge_sessions": [
+      "PM"
+    ],
+    "am_fills_at_close": true,
+    "am_time_et": "09:30:00",
+    "pm_time_et": "16:00:00",
+    "timezone_name": "America/New_York"
+  },
+  "tenor": {
+    "admitted": [
+      "0_7",
+      "8_30",
+      "31_90",
+      "91_180"
+    ],
+    "ranges": {
+      "0_7": [
+        0,
+        7
+      ],
+      "8_30": [
+        8,
+        30
+      ],
+      "31_90": [
+        31,
+        90
+      ],
+      "91_180": [
+        91,
+        180
+      ]
+    },
+    "preferred_dte": {
+      "0_7": 5,
+      "8_30": 14,
+      "31_90": 45,
+      "91_180": 120
+    },
+    "max_dte": 182,
+    "default": "8_30"
+  },
+  "coordinates": {
+    "defaults": {
+      "outright": {
+        "long_delta": 0.55
+      },
+      "debit_vertical": {
+        "long_delta": 0.55,
+        "width_delta": 0.1
+      },
+      "credit_vertical": {
+        "short_delta": 0.35,
+        "width_delta": 0.1
+      },
+      "long_straddle": {
+        "call_delta": 0.5,
+        "put_delta": 0.5
+      },
+      "long_strangle": {
+        "put_delta": 0.25,
+        "call_delta": 0.25
+      },
+      "iron_butterfly": {
+        "short_delta": 0.5,
+        "wing_delta": 0.25
+      },
+      "iron_condor": {
+        "short_delta": 0.3,
+        "width_delta": 0.1
+      },
+      "defined_risk_reversal": {
+        "directional_delta": 0.35,
+        "tail_wing_delta": 0.2
+      },
+      "butterfly": {
+        "center_delta": 0.45,
+        "lower_width_delta": 0.1,
+        "upper_width_delta": 0.1
+      }
+    },
+    "bounds": {
+      "long_delta": [
+        0.2,
+        0.8
+      ],
+      "short_delta": [
+        0.1,
+        0.55
+      ],
+      "width_delta": [
+        0.05,
+        0.3
+      ],
+      "wing_delta": [
+        0.05,
+        0.4
+      ],
+      "call_delta": [
+        0.1,
+        0.55
+      ],
+      "put_delta": [
+        0.1,
+        0.55
+      ],
+      "directional_delta": [
+        0.15,
+        0.6
+      ],
+      "tail_wing_delta": [
+        0.05,
+        0.35
+      ],
+      "center_delta": [
+        0.25,
+        0.7
+      ],
+      "lower_width_delta": [
+        0.05,
+        0.3
+      ],
+      "upper_width_delta": [
+        0.05,
+        0.3
+      ]
+    },
+    "delta_step": 0.05
+  },
+  "resolver": {
+    "max_relative_spread_package": 0.2,
+    "max_quote_age_seconds": 900.0,
+    "min_dte": 1,
+    "delta_field": "model_delta",
+    "delta_convention": "signed_black_scholes",
+    "require_two_sided_quote": true,
+    "require_standard_deliverable": true,
+    "expected_multiplier": 100,
+    "warn_open_interest_below": 100,
+    "warn_relative_spread_above": 0.25,
+    "warn_quote_tier_outside": [
+      "primary",
+      "fallback"
+    ]
+  },
+  "size": {
+    "size_rule": "scenario",
+    "target_scenario_risk": 0.005,
+    "nav_fraction": 0.1,
+    "vol_shock_relative": 0.1,
+    "trading_days_per_year": 252.0,
+    "max_risk_per_underlying": 0.05,
+    "max_total_open_risk": 0.2,
+    "max_net_dollar_delta": 0.5,
+    "max_positions": 12,
+    "max_positions_per_underlying": 3,
+    "collateral_buffer": 0.05,
+    "conviction_multipliers": {}
+  },
+  "cost": {
+    "half_spread_multiplier": 1.0,
+    "option_fee_per_contract": 0.65,
+    "assignment_fee": 5.0,
+    "stock_commission_per_share": 0.005,
+    "stock_half_spread_bps": 1.0,
+    "borrow_rate_annual": 0.005
+  },
+  "risk": {
+    "stop_loss_enabled": true,
+    "stop_loss_fraction": 0.6,
+    "ruin_floor_kappa": 0.2,
+    "force_close_dte": 1,
+    "max_stale_mark_share": 0.25
+  },
+  "hedge": {
+    "enabled": true,
+    "portfolio_level": true,
+    "delta_band": 0.005,
+    "hedge_to_band_edge": true,
+    "allow_fractional_shares": true,
+    "band_rule": "fixed",
+    "risk_aversion": 1.0,
+    "band_multiple": 1.0,
+    "min_band_fraction": 0.001,
+    "max_band_fraction": 0.05,
+    "fallback_half_spread": 0.0001,
+    "hedged_families": [
+      "butterfly",
+      "long_straddle",
+      "long_strangle",
+      "iron_butterfly",
+      "iron_condor"
+    ],
+    "proxy_instruments": {
+      "SPX": "SPY"
+    }
+  },
+  "marking": {
+    "max_mark_quote_age_seconds": 21600.0,
+    "american_tree_steps": 128
+  },
+  "flags": {
+    "measured_spread_costs": false,
+    "suppress_textual_context": false,
+    "suppress_future_knowledge": false,
+    "anonymize": true
+  },
+  "initial_cash": 1000000.0,
+  "admitted_families": [
+    "outright",
+    "debit_vertical",
+    "credit_vertical",
+    "defined_risk_reversal",
+    "butterfly",
+    "long_straddle",
+    "long_strangle",
+    "iron_butterfly",
+    "iron_condor"
+  ],
+  "allow_naked_shorts": false,
+  "risk_free_rate": null,
+  "state_space_id": "state_space.v1",
+  "max_context_tokens": 32768,
+  "max_orders_per_step": 8,
+  "max_quotes_per_name": 6,
+  "quotes_enabled": true,
+  "quote_channel": "text",
+  "mark_quote_source": null
+}

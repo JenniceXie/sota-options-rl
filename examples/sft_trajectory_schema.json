@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Supervised fine-tuning trajectory record (one JSON object per line)",
+  "description": "The actual trajectories are NOT released: they are frontier-teacher outputs over licensed market and news data. This is the exact schema of each line of train.jsonl, so a reader can build a compatible corpus from their own data. One record is ONE EPISODE (one calendar month), not one decision.",
+  "type": "object",
+  "required": ["messages", "loss_mask", "metadata", "env_fingerprint", "teacher_model",
+               "decisions", "tokens", "token_counter", "max_tokens"],
+  "properties": {
+    "messages": {
+      "type": "array",
+      "description": "Append-only chat transcript for the whole episode: one system message, then alternating user (observation) and assistant (order lines) turns. Roughly 49-77 messages per episode.",
+      "items": {
+        "type": "object",
+        "required": ["role", "content", "step_loss_mask"],
+        "properties": {
+          "role": {"type": "string", "enum": ["system", "user", "assistant"]},
+          "content": {"type": "string"},
+          "step_loss_mask": {
+            "type": "integer", "enum": [0, 1],
+            "description": "1 = train on this message's tokens. Set only on assistant turns. THIS is the field the trainer reads; a top-level loss_mask alone is silently ignored by the trainer used here."
+          }
+        }
+      }
+    },
+    "loss_mask": {
+      "type": "array", "items": {"type": "boolean"},
+      "description": "Per-message mirror of step_loss_mask, same length as messages. Retained for trainers that expect a top-level mask. The per-message field is authoritative."
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["arm", "episode_id", "state_space_id"],
+      "properties": {
+        "arm": {"type": "string", "description": "Source run identifier."},
+        "episode_id": {"type": "string", "description": "e.g. ep_2024_09."},
+        "state_space_id": {"type": "string", "description": "Observation encoding version, e.g. state_space.v1."}
+      }
+    },
+    "env_fingerprint": {"type": "string", "description": "SHA-256 of the resolved environment configuration. Every record in a corpus must agree, and must match the evaluation environment, or the corpus and the results describe different environments."},
+    "teacher_model": {"type": "string", "description": "Model identifier that produced the assistant turns."},
+    "decisions": {"type": "integer", "description": "Number of decision steps in the episode."},
+    "tokens": {"type": "integer", "description": "Episode length under token_counter. Must not exceed max_tokens."},
+    "token_counter": {"type": "string", "description": "Identifier of the tokenizer used, e.g. tokenizer.json:<digest>. A character heuristic under-counts this state space by ~1.85x and must not be used to size a budget."},
+    "max_tokens": {"type": "integer", "description": "Content budget applied at corpus-build time. 32768 for the reported runs."},
+    "dropped_over_max_tokens": {"type": "array", "description": "Episodes excluded for exceeding the budget. Present even when empty: 'nothing exceeded the cap' and 'no cap was applied' are different facts."}
+  }
+}

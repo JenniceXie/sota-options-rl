@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Compact per-step observation (state_space.v1), wire format",
+  "description": "The policy reads a newline-delimited text block, not JSON. This file documents the line grammar and the column order, because the encoding is positional and a reader cannot recover it from the text alone. Every integer is the underlying float divided by a fixed scale, so the wire carries no decimal points.",
+  "line_types": {
+    "EPI": {
+      "form": "EPI <episode_id> <first_date>..<last_date> steps=<n>",
+      "note": "Episode header. One calendar month; the book carries in from the previous episode."
+    },
+    "T": {
+      "form": "T <step_index> m<days_to_month_end> <session>",
+      "note": "Step header. session is always PM: decisions are close-only, one per trading day."
+    },
+    "M": {
+      "form": "M <underlying> ret rv iv dv w ts sk bf fi doi",
+      "columns": {
+        "ret": "trailing underlying return, scale 1e4 (basis points)",
+        "rv":  "realized volatility, scale 1e4",
+        "iv":  "at-the-money implied volatility, scale 1e4",
+        "dv":  "change in implied volatility, scale 1e4",
+        "w":   "implied-minus-realized volatility wedge, scale 1e4",
+        "ts":  "implied-volatility term slope, scale 1e4",
+        "sk":  "25-delta risk reversal (skew), scale 1e4",
+        "bf":  "25-delta butterfly (curvature), scale 1e4",
+        "fi":  "option flow imbalance, scale 1e2 (percent)",
+        "doi": "change in open interest, scale 1e2 (percent)"
+      },
+      "note": "One row per underlying. A missing field is the MISSING sentinel, never zero. The policy is never shown a price level or a spot quote."
+    },
+    "A": {
+      "form": "A nlv cash bp util rlz unrlz dd npos nD nV",
+      "columns": {
+        "nlv": "net asset value, scale 1e3", "cash": "cash, scale 1e3",
+        "bp": "buying power, scale 1e3", "util": "capital utilisation, scale 1e2",
+        "rlz": "realized PnL since the run began, scale 1e2",
+        "unrlz": "unrealized PnL, scale 1e2", "dd": "drawdown, scale 1e2",
+        "npos": "open position count, unscaled",
+        "nD": "net dollar delta share, scale 1e2", "nV": "net vega share, scale 1e2"
+      }
+    },
+    "P": {
+      "form": "P <position_id> <underlying> <family> <orientation> <tenor> <dte> <unrealized>",
+      "note": "One row per open position."
+    },
+    "N": {
+      "form": "N <underlying> <category> <direction> <horizon> <text>",
+      "note": "News changelog. Append-only across the episode: an item is served once, when it first becomes available, and is not re-served. direction is +, -, 0 or ? ; horizon is a small integer or ? . See examples/news_schema.json."
+    },
+    "R": {
+      "form": "R <position_id> e<dte> d<deltas> ...",
+      "note": "Receipt for a filled order, reporting the coordinates ACTUALLY obtained. A request and a fill are never assumed equal."
+    }
+  },
+  "action_grammar": {
+    "form": "one order line per reply line, nothing else",
+    "verbs": {"O": "open", "C": "close", "X": "roll (inherits the replaced position's coordinates)", "H": "hold — explicitly do nothing"},
+    "example": "O NVDA cv b 8_30 35/10",
+    "fields": "<verb> <underlying> <family> <orientation> <tenor_bucket> <delta_coordinates>",
+    "families": ["ol outright", "dv debit_vertical", "cv credit_vertical", "dg defined_risk_reversal", "bf butterfly", "ls long_straddle", "lg long_strangle", "ib iron_butterfly", "ic iron_condor"],
+    "note": "The policy never names a contract: no strike and no expiry appear in an action. Deterministic resolvers select contracts by nearest admissible delta. Naked shorts and equity legs are inadmissible."
+  }
+}

@@ -1,0 +1,42 @@
+# Data — none of it is redistributable; see docs/data.md.
+# Root-anchored: an unanchored 'data/' also matches src/portfolio_monkey/data/,
+# which is source, and dropping it makes the release fail to import.
+/data/
+*.parquet
+*.jsonl
+!examples/*.jsonl
+# Model artifacts, including the baseline classifiers (only their metadata ships)
+*.safetensors
+*.bin
+*.pt
+*.pkl
+*.pickle
+/checkpoints/
+global_step_*/
+# Credentials — never commit.
+# Patterns are specific, not substring globs: '*token*' also matches
+# src/portfolio_monkey/env/tokens.py, which is source, and excluding it makes
+# the release fail to import.
+*.env
+.env
+psc.env
+*.pem
+*.key
+*.p12
+.netrc
+.git-credentials
+.hf_token
+hf_token*
+**/credentials.json
+**/service_account*.json
+# Caches and local output
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+/runs/
+/outputs/
+/logs/
+*.log
+.DS_Store

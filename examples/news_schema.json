@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "News item as it reaches the policy (synthetic illustration)",
+  "description": "News enters the observation as N rows in the compact state block. The underlying corpus is NOT redistributable (see docs/data.md); this file documents the fields only.",
+  "type": "object",
+  "required": ["underlying", "category", "direction", "horizon", "text", "available_at"],
+  "properties": {
+    "underlying": {"type": "string", "description": "Ticker the item is attributed to. Index-level items are mapped onto the index slot."},
+    "category":   {"type": "string", "enum": ["ea", "an", "lg", "ot", "gd", "pr"],
+                   "description": "ea earnings, an analyst, lg legal/regulatory, ot other, gd guidance, pr product."},
+    "direction":  {"type": "string", "enum": ["+", "-", "0", "?"],
+                   "description": "Sentiment sign. '?' means the item carries no usable direction and is shown as such rather than defaulted to neutral."},
+    "horizon":    {"type": ["integer", "string"], "description": "Expected horizon in trading days, or '?' when unknown."},
+    "text":       {"type": "string", "description": "One-line summary, entity-masked. Anonymisation is a view layer applied on read."},
+    "available_at": {"type": "string", "format": "date-time",
+                     "description": "Point-in-time stamp. A state at date t is built only from items with available_at <= t. This is the leakage boundary."}
+  },
+  "example": {
+    "underlying": "U03", "category": "ea", "direction": "+", "horizon": 3,
+    "text": "U03 reported quarterly results above consensus; management raised full-year guidance.",
+    "available_at": "2025-06-12T20:15:00Z",
+    "_comment": "SYNTHETIC. Not drawn from the corpus."
+  }
+}

@@ -1,0 +1,11 @@
+- name: pm_agent
+  _target_: pm_train.verl_loop.PMAgentLoop
+  data_root: "${HOME}/rl_package_v1/data"
+  mark_cache_dir: "${PM_WORK_ROOT}/markquotes"
+  rollout_dir: "${PM_WORK_ROOT}/campaign27/s4_none/rollouts"
+  gamma: 0.99
+  max_turn_tokens: 256
+  context_budget: 30720
+  tokenizer_json: "${HOME}/models/Qwen3.8-27B-pm/tokenizer.json"
+  overflow: "ruin"
+  env_in_subprocess: true

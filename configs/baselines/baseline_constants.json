@@ -1,0 +1,106 @@
+{
+  "FRICTION": {
+    "long_straddle": 0.032,
+    "outright": 0.032,
+    "long_strangle": 0.048,
+    "iron_butterfly": 0.091,
+    "credit_vertical": 0.097,
+    "iron_condor": 0.106,
+    "debit_vertical": 0.113,
+    "defined_risk_reversal": 0.329,
+    "butterfly": null
+  },
+  "GARCH_LONG_VOL": 0.9,
+  "GARCH_SHORT_VOL": 1.25,
+  "HOLD_STEPS": 5,
+  "MAX_OPENS_PER_NAME": 3,
+  "MAX_OPENS_PER_STEP": 2,
+  "MAX_OPENS_PER_STEP_9": 6,
+  "MAX_POSITIONS": 12,
+  "MIN_DTE": 3,
+  "RULES": [
+    {
+      "family": "ls",
+      "orientation": "n",
+      "feature": "iv_rv",
+      "op": "le",
+      "threshold": 0.9,
+      "edge": 0.1,
+      "name": "long_straddle"
+    },
+    {
+      "family": "ib",
+      "orientation": "n",
+      "feature": "iv_rv",
+      "op": "ge",
+      "threshold": 1.2,
+      "edge": 0.2,
+      "name": "iron_butterfly"
+    },
+    {
+      "family": "ic",
+      "orientation": "n",
+      "feature": "iv_rv",
+      "op": "ge",
+      "threshold": 1.25,
+      "edge": 0.25,
+      "name": "iron_condor"
+    },
+    {
+      "family": "lg",
+      "orientation": "n",
+      "feature": "bf_iv",
+      "op": "le",
+      "threshold": 0.0,
+      "edge": null,
+      "name": "long_strangle"
+    },
+    {
+      "family": "bf",
+      "orientation": "b",
+      "feature": "bf_iv",
+      "op": "le",
+      "threshold": 0.0,
+      "edge": null,
+      "name": "butterfly"
+    },
+    {
+      "family": "dg",
+      "orientation": "b",
+      "feature": "sk_iv",
+      "op": "ge",
+      "threshold": 0.15,
+      "edge": null,
+      "name": "defined_risk_reversal"
+    },
+    {
+      "family": "cv",
+      "orientation": "r",
+      "feature": "sk_iv",
+      "op": "le",
+      "threshold": 0.0,
+      "edge": null,
+      "name": "credit_vertical"
+    },
+    {
+      "family": "ol",
+      "orientation": "sign",
+      "feature": "abs_ret",
+      "op": "ge",
+      "threshold": 0.03,
+      "edge": null,
+      "name": "outright"
+    },
+    {
+      "family": "dv",
+      "orientation": "sign",
+      "feature": "abs_ret",
+      "op": "ge",
+      "threshold": 0.02,
+      "edge": null,
+      "name": "debit_vertical"
+    }
+  ],
+  "TENOR": "8_30",
+  "TERM_SLOPE_GATE": 0.0
+}

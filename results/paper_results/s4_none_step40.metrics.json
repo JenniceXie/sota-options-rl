@@ -1,0 +1,46 @@
+{
+  "arm_metrics": {
+    "arm": "s4_none_step40",
+    "track": "full",
+    "n_obs": 123,
+    "grid": "PM",
+    "universe": "AAPL,AMZN,GOOGL,META,MSFT,MU,NVDA,PLTR,TSLA,SPY",
+    "cumulative_log_return": -0.4441947500998449,
+    "cumulative_return": -0.3586594924636005,
+    "annualized_return": -0.5974989352518205,
+    "annualized_vol": 0.4951771718297881,
+    "sharpe": -1.8378422685098026,
+    "sharpe_se": 1.4361444321854404,
+    "sortino": -3.0634412322145517,
+    "max_drawdown_daily": 0.55916983929693,
+    "max_drawdown_native": null,
+    "calmar": -1.0685464294767462,
+    "skewness": 2.0091841866617344,
+    "excess_kurtosis": 6.171778256242641,
+    "positive_day_share": 0.2926829268292683,
+    "turnover": 311.84826750434735,
+    "frictions": 241934.32162222636,
+    "gross_pnl": 2660508.2812141567,
+    "cost_share": 0.09093537627021277,
+    "mean_stale_mark_share": 0.01091382166168576
+  },
+  "bootstrap": {
+    "method": "calendar-month block bootstrap of the sum of daily PM log returns",
+    "blocks": {
+      "2025-03": 19,
+      "2025-04": 21,
+      "2025-05": 21,
+      "2025-06": 20,
+      "2025-07": 22,
+      "2025-08": 21
+    },
+    "n_resamples": 10000,
+    "seed": 0,
+    "cumulative_log_return": -0.4441947500998449,
+    "ci95": [
+      -1.0353375323210159,
+      0.15642621977112903
+    ],
+    "se": 0.3098886655688815
+  }
+}
