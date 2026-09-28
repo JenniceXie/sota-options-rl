@@ -3,17 +3,24 @@ message: "If you use this code, please cite the paper."
 title: "SOTA: Stock Options Trading Agents Guided by Option-Implied Return Distributions"
 abstract: >-
   Agentic option trading requires an autonomous policy to select complex option
-  strategies based on nuanced market conditions. We present SOTA (Stock Options
-  Trading Agents), a language-model post-training framework for dynamic option
-  strategy selection. SOTA represents market conditions using features of the
-  option-implied return distribution and selects among nine structured
-  option-strategy families. SOTA is first supervised on frontier-model trading
-  trajectories and then optimized through reinforcement learning on portfolio
-  performance. We evaluate SOTA on options on nine large-cap U.S. equities and
-  SPY against non-LLM-based option strategy-selection, and demonstrate that SOTA
-  achieves superior out-of-sample performance. We also find an asymmetric role
-  of news: news improves frontier-teacher trajectories, but retaining news
-  during reinforcement learning provides little additional benefit.
+  strategies based on nuanced market conditions. Options give targeted exposure
+  to direction, volatility, skewness, and curvature, but building a position
+  means choosing among thousands of contracts with nonlinear payoffs. We present
+  SOTA (Stock Options Trading Agents), a language-model post-training framework
+  for dynamic option strategy selection. SOTA represents market conditions using
+  features of the option-implied return distribution and selects among nine
+  structured option-strategy families; deterministic resolvers then map each
+  decision to contracts, position sizes, and delta hedges. SOTA is first
+  supervised on frontier-model trading trajectories, generated with stock
+  identity, price levels, and calendar time anonymized to limit leakage, and
+  then optimized through reinforcement learning on portfolio returns net of
+  transaction costs. We evaluate SOTA on options on nine large-cap U.S. equities
+  and SPY against rule-based and machine-learning strategy selectors run in the
+  same trading environment. SOTA earns an 18.3% total return with a Sharpe ratio
+  of 1.60 and an 8.96% maximum drawdown over a six-month out-of-sample period.
+  We also find an asymmetric role of news: news improves frontier-teacher
+  trajectories, but retaining news during reinforcement learning lowers
+  out-of-sample return from 18.3% to −2.7% and more than doubles turnover.
 authors:
   - family-names: Xie
     given-names: Yizhen
