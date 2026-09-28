@@ -21,3 +21,16 @@ version: 1.0.0
 date-released: "2026-09-27"
 repository-code: "https://github.com/JenniceXie/sota-options-rl"
 license: MIT
+preferred-citation:
+  type: unpublished
+  status: submitted
+  title: "SOTA: Stock Options Trading Agents Guided by Option-Implied Return Distributions"
+  authors:
+    - family-names: Xie
+      given-names: Yizhen
+      affiliation: Carnegie Mellon University
+    - family-names: Liu
+      given-names: Mengyang
+      affiliation: Amazon
+  year: 2026
+  notes: "Manuscript under review."
