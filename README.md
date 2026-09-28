@@ -78,9 +78,6 @@ tests/                      corpus-equivalence test and a concurrency benchmark
 docs/                       data layout, provenance notes and the overview figure
 ```
 
-The package keeps its development name, `portfolio_monkey`; it is the SOTA
-system described in the paper.
-
 ## Results
 
 | phase | dates | trading days |
