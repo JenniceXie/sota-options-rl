@@ -182,8 +182,8 @@ expiry. Volatilities are annualized.
 | `ts` | term structure | $\sigma^{\mathrm{iv}}_t(0.50\mathrm{C},90)-\sigma^{\mathrm{iv}}_t(0.50\mathrm{C},30)$ |
 | `sk` | skewness | $\sigma^{\mathrm{iv}}_t(0.25\mathrm{P},30)-\sigma^{\mathrm{iv}}_t(0.25\mathrm{C},30)$ |
 | `bf` | curvature | $\tfrac{1}{2}\left[\sigma^{\mathrm{iv}}_t(0.25\mathrm{P},30)+\sigma^{\mathrm{iv}}_t(0.25\mathrm{C},30)\right]-\mathrm{iv}_t$, the 30-day 25-delta butterfly |
-| `fi` | option flow imbalance | $\sum_k q_k\,\mathrm{sign}_k\lvert\Delta_k\rvert \,/\, \sum_k q_k\lvert\Delta_k\rvert$ over option trades $k$ printed between the session open and the decision, with $\mathrm{sign}_k$ the inferred trade direction |
-| `doi` | change in open interest | $(\mathrm{OI}_t-\mathrm{OI}_{t-1})/\mathrm{OI}_{t-1}$ |
+| `fi` | option flow imbalance | $`\sum_k q_k\,\mathrm{sign}_k\lvert\Delta_k\rvert \,/\, \sum_k q_k\lvert\Delta_k\rvert`$ over option trades $k$ printed between the session open and the decision, with $\mathrm{sign}_k$ the inferred trade direction |
+| `doi` | change in open interest | $`(\mathrm{OI}_t-\mathrm{OI}_{t-1})/\mathrm{OI}_{t-1}`$ |
 
 **Point in time.** Each raw or derived record carries three timestamps: when the
 underlying economic event occurred, when the information became available, and
