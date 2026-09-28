@@ -158,7 +158,9 @@ For example, a news item (synthetic):
 
 ### Market states
 
-**Sources.** Option trades and quotes from OPRA, and OptionMetrics.
+**Sources.** Option trades and quotes from OPRA, and OptionMetrics. Underlying
+stock prices are CRSP daily open and close prices for the nine equities, and
+SpiderRock underlying marks for SPY.
 
 **Variables.** For each underlying and trading date $t$, the state has ten
 features. Write $S_t$ for the underlying price and $r_i$ for a daily

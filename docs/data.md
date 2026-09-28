@@ -1,8 +1,7 @@
-# Data requirements
+# Data
 
-Nothing in this repository is market data. This file states exactly what the code
-expects, so a reader can judge the implementation and, if they hold equivalent
-licences, supply their own tree.
+The inputs the code reads: their layout, their point-in-time rule and their
+sources.
 
 ## The environment datasets
 
@@ -34,31 +33,31 @@ it, and the assertion is what makes the held-out window held out.
 
 One tolerated absence: a date with no `news_catalyst_rows` partition renders an
 explicit unavailability row and continues. The five numeric datasets raise
-instead — see the README for why.
+instead, because a plausible `na` in a field the policy reads as a measurement is
+worse than a halt.
 
-## Provenance and redistribution
+## Sources
 
-The underlying feeds are commercial: an options market-data vendor for chains and
-flow, CRSP/WRDS for underlying quotes, SpiderRock for quote-at-print NBBO, TAQ for
-session anchors, and a licensed news feed. **None of it may be redistributed**, so
-none of it is here, and we cannot supply it on request.
+The datasets are proprietary. Option trades and quotes come from OPRA, together
+with OptionMetrics. Underlying prices are CRSP daily open and close prices for the
+nine equities, and SpiderRock underlying marks for SPY. News comes from
+Massive.com's news API, and regulatory filings from SEC EDGAR.
 
-Trading-date lists are the one exception: `configs/dates_{sft,rl,eval}.txt` are
-NYSE session dates, which are public. They define the three windows —
-63 / 59 / 124 dates, disjoint and chronologically ordered. They sit where the
-code looks for them; `baselines/dataset.py` and several analysis scripts read
-these exact paths.
+The trading-date lists `configs/dates_{sft,rl,eval}.txt` are NYSE session dates.
+They define the three windows (63 / 59 / 124 dates, disjoint and in
+chronological order). They sit where the code looks for them:
+`baselines/dataset.py` and several analysis scripts read these exact paths.
 
 ## The supervised corpus
 
-Not released. Each line of `train.jsonl` is one month-long episode:
+Each line of `train.jsonl` is one month-long episode:
 `messages`, a per-message `step_loss_mask`, `metadata`, the `env_fingerprint`, the
 teacher identifier, and the token accounting. Full schema in
 [`../examples/sft_trajectory_schema.json`](../examples/sft_trajectory_schema.json);
 a synthetic record in
 [`../examples/synthetic_sft_example.jsonl`](../examples/synthetic_sft_example.jsonl).
 
-Two details a compatible corpus must get right:
+Two details of the format matter:
 
 * **`step_loss_mask` is per message, and it is the field the trainer reads.** A
   top-level `loss_mask` alone is silently ignored by the trainer used here.

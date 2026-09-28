@@ -33,11 +33,11 @@ Full fingerprints are in the CSV. `621604cf…` is the SOTA configuration with
 the run's recorded configuration differs from the SOTA run's.
 
 **Code.** Each baseline job logged the source revision it ran from and checksums
-of its key files. Every module those jobs imported is byte-identical to the
-released one; that covers `src/portfolio_monkey/`, `run_baseline_arms.py`,
+of its key files. Every module those jobs imported is byte-identical to the one
+in this repository; that covers `src/portfolio_monkey/`, `run_baseline_arms.py`,
 `sweep_algorithmic_policies.py` and `clairvoyant_oracle.py`. The GARCH and
-Threshold jobs also read a parameter artifact, which is released as
-`configs/baselines/params_fitted.json` without its forecast series. The SOTA row
+Threshold jobs also read a parameter artifact; its fitted values are in
+`configs/baselines/params_fitted.json`. The SOTA row
 comes from the language policy's own evaluation run. `build_table1.py`
 recomputes its metrics from that run's ledger, and they agree with the sealed
 `results/paper_results/s4_none.metrics.json`.
@@ -113,7 +113,7 @@ python -m portfolio_monkey.jobs.run_policy_episodes \
 The fitted models' metadata is in `configs/baselines/package_models_gbdt.meta.json`
 and `package_models_logistic.meta.json`: heads, per-head training base rates, the
 validation threshold scan, and the windows the classifiers and the threshold were
-fitted on. The classifiers themselves are not included.
+fitted on.
 
 `baselines/policy.py` selects by **lift**, a head's predicted probability over its
 own training base rate, with an absolute floor of 0.5. Raw probability against
