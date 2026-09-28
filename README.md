@@ -43,7 +43,14 @@ Contributions:
   frontier teacher's trading decisions, but retaining the news pipeline during
   reinforcement learning does not improve out-of-sample portfolio performance.
 
-<!-- FIGURE: the paper figure goes here. -->
+![Overview of the SOTA framework](docs/sota_framework.jpg)
+
+*Overview of the SOTA framework. A frontier LLM uses structured market states and
+contemporaneous news to generate supervised trading trajectories. The smaller
+language model is initialized through supervised fine-tuning and subsequently
+optimized through reinforcement learning in the portfolio environment. The agent
+selects option strategies and their parameters, while deterministic resolvers map
+these decisions into executable portfolio positions.*
 
 ## Repository structure
 
@@ -68,7 +75,7 @@ configs/
 examples/                   input schemas and a synthetic trajectory
 results/                    results table and per-checkpoint metrics
 tests/                      corpus-equivalence test and a concurrency benchmark
-docs/                       data layout and provenance notes
+docs/                       data layout, provenance notes and the overview figure
 ```
 
 The package keeps its development name, `portfolio_monkey`; it is the SOTA
