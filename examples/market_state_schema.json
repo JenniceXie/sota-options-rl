@@ -5,7 +5,7 @@
   "line_types": {
     "EPI": {
       "form": "EPI <episode_id> <first_date>..<last_date> steps=<n>",
-      "note": "Episode header. One calendar month; the book carries in from the previous episode."
+      "note": "Episode header. One calendar month. Teacher and evaluation runs carry the book in from the previous month; an RL training episode starts from a fresh portfolio."
     },
     "T": {
       "form": "T <step_index> m<days_to_month_end> <session>",

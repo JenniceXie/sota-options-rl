@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "News item as it reaches the policy (synthetic illustration)",
-  "description": "News enters the observation as N rows in the compact state block. The underlying corpus is NOT redistributable (see docs/data.md); this file documents the fields only.",
+  "description": "News enters the observation as N rows in the compact state block. This file documents the fields of one item.",
   "type": "object",
   "required": ["underlying", "category", "direction", "horizon", "text", "available_at"],
   "properties": {

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Supervised fine-tuning trajectory record (one JSON object per line)",
-  "description": "The actual trajectories are NOT released: they are frontier-teacher outputs over licensed market and news data. This is the exact schema of each line of train.jsonl, so a reader can build a compatible corpus from their own data. One record is ONE EPISODE (one calendar month), not one decision.",
+  "description": "The schema of each line of train.jsonl. One record is ONE EPISODE (one calendar month), not one decision.",
   "type": "object",
   "required": ["messages", "loss_mask", "metadata", "env_fingerprint", "teacher_model",
                "decisions", "tokens", "token_counter", "max_tokens"],

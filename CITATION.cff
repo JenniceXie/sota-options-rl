@@ -1,12 +1,19 @@
 cff-version: 1.2.0
 message: "If you use this code, please cite the paper."
-title: "SOTA: Strategy-level reinforcement learning for options portfolio management"
+title: "SOTA: Stock Options Trading Agents Guided by Option-Implied Return Distributions"
 abstract: >-
-  Code release for a language-model post-training framework for option strategy
-  selection guided by option-implied return distributions. The policy emits
-  strategy intent in a small domain-specific language; deterministic resolvers
-  map intent to contracts, positions and hedge trades; the reward is realized
-  after-cost portfolio return.
+  Agentic option trading requires an autonomous policy to select complex option
+  strategies based on nuanced market conditions. We present SOTA (Stock Options
+  Trading Agents), a language-model post-training framework for dynamic option
+  strategy selection. SOTA represents market conditions using features of the
+  option-implied return distribution and selects among nine structured
+  option-strategy families. SOTA is first supervised on frontier-model trading
+  trajectories and then optimized through reinforcement learning on portfolio
+  performance. We evaluate SOTA on options on nine large-cap U.S. equities and
+  SPY against non-LLM-based option strategy-selection, and demonstrate that SOTA
+  achieves superior out-of-sample performance. We also find an asymmetric role
+  of news: news improves frontier-teacher trajectories, but retaining news
+  during reinforcement learning provides little additional benefit.
 authors:
   - family-names: Xie
     given-names: Yizhen

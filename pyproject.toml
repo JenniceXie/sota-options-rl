@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "sota-options-rl"
 version = "1.0.0"
-description = "SOTA: strategy-level reinforcement learning for options portfolio management"
+description = "SOTA: Stock Options Trading Agents Guided by Option-Implied Return Distributions"
 readme = "README.md"
 requires-python = ">=3.10"
 # Deliberately empty: this installs beside a pinned torch/vllm stack for the RL
