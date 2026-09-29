@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" class="js-disabled"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOTA — Stock Options Trading Agents</title>
+<meta name="description" content="Stock Options Trading Agents guided by option-implied return distributions. A two-stage learning framework for structured option strategy selection.">
+<link rel="icon" href="sota_icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="site.css"><script src="site.js" defer></script>
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<nav aria-label="Main navigation"><div class="nav-inner"><a class="brand" href="#main">SOTA</a><div class="nav-links"><a href="#framework">Framework</a><a href="#method">Method</a><a href="#results">Results</a><a href="https://github.com/JenniceXie/sota-options-rl">Code ↗</a></div></div></nav>
+<main id="main"><header class="hero">
+<h1 class="sr-only">SOTA: Stock Options Trading Agents Guided by Option-Implied Return Distributions</h1>
+<img class="banner" src="sota_banner.svg" width="1440" height="420" alt="SOTA — Stock Options Trading Agents. Learn which option strategy to trade. Guided by option-implied return distributions: direction, volatility, skewness, and curvature.">
+<p class="authors">Yizhen Xie · Mengyang Liu</p><div class="affiliations">Carnegie Mellon University · Amazon</div>
+<div class="hero-actions"><a class="button primary" href="#framework">Explore the framework</a><a class="button" href="https://github.com/JenniceXie/sota-options-rl">GitHub repository ↗</a><a class="button" href="https://github.com/JenniceXie/sota-options-rl/blob/main/CITATION.cff">Citation</a></div>
+<p class="intro">A price forecast is only the beginning. <strong>SOTA learns which option strategy to trade</strong>, selecting among nine structured strategy families. Deterministic resolvers handle contracts, sizing, and hedging.</p>
+</header>
+<section id="framework" aria-labelledby="framework-title"><div class="eyebrow">Framework</div><h2 id="framework-title">From market observations to a trading policy.</h2><p class="section-intro">The teacher provides a starting point. Portfolio rewards refine the student. Follow the six steps to see how the two training phases connect.</p>
+<div class="panel" id="walkthrough"><div class="panel-top"><h3>How SOTA learns strategy selection</h3><div class="controls" role="group" aria-label="Animation controls"><button id="previous" type="button" aria-label="Previous step">←</button><button id="play" type="button" aria-pressed="false">Play</button><button id="next" type="button" aria-label="Next step">→</button></div></div>
+<div class="steps" role="group" aria-label="Framework steps"><button class="step" type="button" aria-controls="step-text"><span>1</span>Observe</button><button class="step" type="button" aria-controls="step-text"><span>2</span>Generate</button><button class="step" type="button" aria-controls="step-text"><span>3</span>Supervise</button><button class="step" type="button" aria-controls="step-text"><span>4</span>Select</button><button class="step" type="button" aria-controls="step-text"><span>5</span>Implement</button><button class="step" type="button" aria-controls="step-text"><span>6</span>Improve</button></div>
+<div class="diagram-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="diagram-title diagram-description">
+<title id="diagram-title">SOTA: strategy selection with supervised and reinforcement learning</title><desc id="diagram-description">Market observations feed the frontier teacher and strategy selector. The teacher supervises the student. Both propose candidate strategies. A selected strategy is implemented in a portfolio; reward updates the student.</desc><rect width="1200" height="560" fill="white" />
+<rect x="375" y="25" width="450" height="68" rx="12" fill="#F6F8F7" stroke="#E3E8E5" stroke-width="1.4" data-node="observations" />
+<text x="600" y="50" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#65716B">MARKET OBSERVATIONS</text>
+<text x="600" y="77" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400" fill="#0E1512">News summaries  +  Market states</text>
+<polyline points="600,93 600,250" fill="none" stroke="#0E1512" stroke-width="2" stroke-linejoin="round" data-flow="observations" />
+<polygon points="600,250 604.0,241.0 596.0,241.0" fill="#0E1512" />
+<polyline points="600,120 45,120 45,295 70,295" fill="none" stroke="#0E1512" stroke-width="2" stroke-linejoin="round" data-flow="observations" />
+<polygon points="70,295 61.0,291.0 61.0,299.0" fill="#0E1512" />
+<text x="190" y="179" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#2A78D6">PHASE I</text>
+<text x="190" y="206" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="#2A78D6">Supervised fine-tuning</text>
+<text x="1010" y="179" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#EB6834">PHASE II</text>
+<text x="1010" y="206" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="#EB6834">Reinforcement learning</text>
+<rect x="70" y="250" width="240" height="90" rx="12" fill="#FFFFFF" stroke="#CFD6D2" stroke-width="1.4" data-node="teacher" />
+<text x="190" y="289" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" fill="#0E1512">Frontier LLM</text>
+<text x="190" y="316" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400" fill="#65716B">Teacher</text>
+<rect x="890" y="250" width="240" height="90" rx="12" fill="#FFFFFF" stroke="#CFD6D2" stroke-width="1.4" data-node="student" />
+<text x="1010" y="289" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" fill="#0E1512">LLM agent</text>
+<text x="1010" y="316" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400" fill="#65716B">Student</text>
+<polyline points="310,267 345,267 345,165 590,165" fill="none" stroke="#2A78D6" stroke-width="2" stroke-linejoin="round" data-flow="sft" />
+<path d="M590 165 C590 151 610 151 610 165" fill="none" stroke="#2A78D6" stroke-width="2" />
+<polyline points="610,165 855,165 855,267 890,267" fill="none" stroke="#2A78D6" stroke-width="2" stroke-linejoin="round" data-flow="sft" />
+<polygon points="890,267 881.0,263.0 881.0,271.0" fill="#2A78D6" />
+<text x="450" y="150" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="400" fill="#2A78D6">Supervised training</text>
+<rect x="475" y="250" width="250" height="90" rx="12" fill="#E7F5EE" stroke="#0F7A55" stroke-width="2" data-node="selection" />
+<text x="600" y="288" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="27" font-weight="700" fill="#0F7A55">Strategy</text>
+<text x="600" y="319" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="27" font-weight="700" fill="#0F7A55">selection</text>
+<polyline points="310,310 475,310" fill="none" stroke="#0E1512" stroke-width="2" stroke-linejoin="round" data-flow="teacher" />
+<polygon points="475,310 466.0,306.0 466.0,314.0" fill="#0E1512" />
+<text x="392" y="292" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400" fill="#65716B">Candidates</text>
+<polyline points="890,310 725,310" fill="none" stroke="#0E1512" stroke-width="2" stroke-linejoin="round" data-flow="student" />
+<polygon points="725,310 734.0,314.0 734.0,306.0" fill="#0E1512" />
+<text x="809" y="292" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400" fill="#65716B">Candidates</text>
+<polyline points="600,340 600,420" fill="none" stroke="#0F7A55" stroke-width="2" stroke-linejoin="round" data-flow="implementation" />
+<polygon points="600,420 604.0,411.0 596.0,411.0" fill="#0F7A55" />
+<text x="619" y="383" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#0F7A55">Selected strategy</text>
+<rect x="430" y="420" width="340" height="92" rx="12" fill="#FFFFFF" stroke="#CFD6D2" stroke-width="1.4" data-node="implementation" />
+<text x="600" y="458" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700" fill="#0E1512">Portfolio implementation</text>
+<text x="600" y="488" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400" fill="#65716B">Option Greeks / Stock hedging</text>
+<polyline points="770,466 1010,466 1010,340" fill="none" stroke="#EB6834" stroke-width="2.2" stroke-linejoin="round" data-flow="feedback" />
+<polygon points="1010,340 1006.0,349.0 1014.0,349.0" fill="#EB6834" />
+<text x="881" y="449" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#0E1512">Reward</text>
+<text x="1030" y="387" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#EB6834">Policy</text>
+<text x="1030" y="408" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#EB6834">update</text>
+</svg></div>
+<div class="explanation" aria-live="polite" aria-atomic="true"><div><div class="step-label" id="step-count">Step 1 / 6</div><h3 id="step-title">Observe</h3></div><p id="step-text"></p></div>
+<p class="no-js">This static diagram shows both training stages. The frontier teacher generates supervised trajectories; reward-driven reinforcement learning refines the student.</p>
+<p class="figure-note">Simplified overview. News is used for teacher supervision; the reported RL policy uses market states only. The feedback arrow summarizes reward computation and policy optimization.</p>
+</div><p class="downloads"><a href="sota_framework.svg" download>Download figure (SVG)</a><a href="sota_framework.png" download>Download figure (PNG)</a></p></section>
+<section id="method" aria-labelledby="method-title"><div class="eyebrow">Method</div><h2 id="method-title">Two stages. One structured decision space.</h2><div class="method-grid"><article><h3>Phase I · Supervised fine-tuning</h3><p>A frontier LLM produces trading trajectories from anonymized market states and contemporaneous news. Trajectories pass an outcome gate before the student is trained on the teacher's decisions.</p></article><article><h3>Phase II · Reinforcement learning</h3><p>The student interacts with the same portfolio environment and learns from rewards net of transaction costs. The reported configuration uses market states only.</p></article></div>
+<div class="cards"><article class="card"><h3>Structured strategies</h3><p>Nine option-strategy families express different directional, volatility, skewness, and curvature exposures.</p></article><article class="card"><h3>Deterministic execution</h3><p>Rule-based resolvers map decisions to contracts, position sizes, and delta hedges.</p></article><article class="card"><h3>Point-in-time inputs</h3><p>Features and news respect information-availability timestamps. Identity, price levels, and calendar time are anonymized.</p></article></div></section>
+<section id="results" aria-labelledby="results-title"><div class="eyebrow">Reported results</div><h2 id="results-title">Six months out of sample.</h2><p class="section-intro">Options on SPY and nine large-cap U.S. equities. Test window: March 3–August 29, 2025. Values below come from the repository's results table.</p>
+<div class="cards"><div class="card"><div class="stat">18.32%</div><div class="stat-label">Total return</div></div><div class="card"><div class="stat">1.60</div><div class="stat-label">Annualized Sharpe ratio</div></div><div class="card"><div class="stat">8.96%</div><div class="stat-label">Maximum drawdown</div></div></div>
+<div class="table-wrap"><table><caption class="sr-only">Test-window comparison of SOTA and five baselines</caption><thead><tr><th scope="col">Policy</th><th scope="col">Total return (%)</th><th scope="col">Sharpe ratio</th><th scope="col">Max. drawdown (%)</th></tr></thead><tbody><tr class="ours"><td>SOTA</td><td>18.32</td><td>1.60</td><td>8.96</td></tr><tr><td>Equal-weighted rule</td><td>-5.22</td><td>-13.46</td><td>5.22</td></tr><tr><td>GARCH rule</td><td>-49.24</td><td>-6.27</td><td>49.42</td></tr><tr><td>Threshold rule</td><td>-28.46</td><td>-1.95</td><td>33.16</td></tr><tr><td>GBDT</td><td>-49.78</td><td>-8.55</td><td>49.78</td></tr><tr><td>Logistic</td><td>-55.45</td><td>-11.63</td><td>55.47</td></tr></tbody></table></div>
+<p class="figure-note">SOTA: Qwen3.8-27B after supervised fine-tuning and reinforcement learning, at RL step 20. <a href="https://github.com/JenniceXie/sota-options-rl/blob/main/results/table1.csv">Full metrics and provenance ↗</a></p>
+</section>
+<footer>Research code and data documentation: <a href="https://github.com/JenniceXie/sota-options-rl">JenniceXie/sota-options-rl</a>. Visual styling inspired by <a href="https://dreamyang-liu.github.io/STORM/">STORM</a>; figures and page implementation are original to SOTA.</footer>
+</main></body></html>

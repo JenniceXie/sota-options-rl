@@ -1,4 +1,8 @@
+![SOTA — Stock Options Trading Agents. Learn which option strategy to trade.](docs/sota_banner.svg)
+
 # SOTA: Stock Options Trading Agents Guided by Option-Implied Return Distributions
+
+[Project page and animated walkthrough](docs/PROJECT_PAGE.md) · [Editable framework figure](docs/sota_framework.svg)
 
 ## Abstract
 
@@ -43,14 +47,14 @@ Contributions:
   frontier teacher's trading decisions, but retaining the news pipeline during
   reinforcement learning does not improve out-of-sample portfolio performance.
 
-![Overview of the SOTA framework](docs/sota_framework.jpg)
+![Overview of the SOTA framework](docs/sota_framework.svg)
 
 *Overview of the SOTA framework. A frontier LLM uses structured market states and
 contemporaneous news to generate supervised trading trajectories. The smaller
 language model is initialized through supervised fine-tuning and subsequently
 optimized through reinforcement learning in the portfolio environment. The agent
 selects option strategies and their parameters, while deterministic resolvers map
-these decisions into executable portfolio positions.*
+these decisions into executable portfolio positions. The feedback arrow summarizes reward computation and policy optimization. News is used for teacher supervision; the reported RL policy uses market states only.*
 
 ## Repository structure
 

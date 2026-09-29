@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="420" viewBox="0 0 1440 420">
+<rect width="1440" height="420" fill="white"/>
+<rect x="1" y="1" width="1438" height="418" rx="20" fill="#FFFFFF" stroke="#E3E8E5" stroke-width="1"/>
+<rect x="60" y="55" width="205" height="210" rx="26" fill="#E7F5EE" stroke="#E7F5EE" stroke-width="0"/>
+<circle cx="162" cy="136" r="48" fill="#FFFFFF" stroke="#0F7A55" stroke-width="4"/>
+<polyline points="130,172 139,194 185,194 194,172" fill="none" stroke="#0F7A55" stroke-width="4" stroke-linejoin="round"/>
+<polyline points="143,204 181,204" fill="none" stroke="#0F7A55" stroke-width="4" stroke-linejoin="round"/>
+<polyline points="152,215 172,215" fill="none" stroke="#0F7A55" stroke-width="4" stroke-linejoin="round"/>
+<polyline points="108.3064249653648,105.0 97.0480947161671,98.5" fill="none" stroke="#0F7A55" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="135.79766777207664,79.8089172037277 130.30363036944755,68.02691597225125" fill="none" stroke="#0F7A55" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="188.20233222792336,79.8089172037277 193.69636963055245,68.02691597225126" fill="none" stroke="#0F7A55" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="215.69357503463522,105.0 226.9519052838329,98.5" fill="none" stroke="#0F7A55" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="129,148 148,148 169,122" fill="none" stroke="#2A78D6" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="135,126 157,151 185,119" fill="none" stroke="#0F7A55" stroke-width="3" stroke-linejoin="round"/>
+<text x="307" y="79" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" fill="#0F7A55">STOCK OPTIONS TRADING AGENTS</text>
+<text x="303" y="169" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="99" font-weight="700" fill="#0E1512">SOTA</text>
+<text x="307" y="221" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700" fill="#0E1512">Learn which option strategy to trade.</text>
+<text x="309" y="256" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="400" fill="#65716B">Guided by option-implied return distributions</text>
+<polyline points="60,304 1380,304" fill="none" stroke="#E3E8E5" stroke-width="1" stroke-linejoin="round"/>
+<polyline points="90,356 139,356" fill="none" stroke="#CFD6D2" stroke-width="1" stroke-linejoin="round"/>
+<polyline points="90,364 113,364 137,337" fill="none" stroke="#0F7A55" stroke-width="2.6" stroke-linejoin="round"/>
+<text x="162" y="359" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700" fill="#0E1512">Direction</text>
+<polyline points="420,356 469,356" fill="none" stroke="#CFD6D2" stroke-width="1" stroke-linejoin="round"/>
+<polyline points="420,338 443,365 467,338" fill="none" stroke="#0F7A55" stroke-width="2.6" stroke-linejoin="round"/>
+<text x="492" y="359" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700" fill="#0E1512">Volatility</text>
+<polyline points="750,356 799,356" fill="none" stroke="#CFD6D2" stroke-width="1" stroke-linejoin="round"/>
+<polyline points="750,363 762,363 773,350 784,350 797,336" fill="none" stroke="#0F7A55" stroke-width="2.6" stroke-linejoin="round"/>
+<text x="822" y="359" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700" fill="#0E1512">Skewness</text>
+<polyline points="1080,356 1129,356" fill="none" stroke="#CFD6D2" stroke-width="1" stroke-linejoin="round"/>
+<polyline points="1080,364 1090,364 1103,336 1116,364 1127,364" fill="none" stroke="#0F7A55" stroke-width="2.6" stroke-linejoin="round"/>
+<text x="1152" y="359" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700" fill="#0E1512">Curvature</text>
+</svg>

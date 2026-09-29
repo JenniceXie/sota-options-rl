@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560">
+<rect width="1200" height="560" fill="white"/>
+<rect x="375" y="25" width="450" height="68" rx="12" fill="#F6F8F7" stroke="#E3E8E5" stroke-width="1.4"/>
+<text x="600" y="50" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#65716B">MARKET OBSERVATIONS</text>
+<text x="600" y="77" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400" fill="#0E1512">News summaries  +  Market states</text>
+<polyline points="600,93 600,250" fill="none" stroke="#0E1512" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="600,250 604.0,241.0 596.0,241.0" fill="#0E1512"/>
+<polyline points="600,120 45,120 45,295 70,295" fill="none" stroke="#0E1512" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="70,295 61.0,291.0 61.0,299.0" fill="#0E1512"/>
+<text x="190" y="179" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#2A78D6">PHASE I</text>
+<text x="190" y="206" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="#2A78D6">Supervised fine-tuning</text>
+<text x="1010" y="179" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#EB6834">PHASE II</text>
+<text x="1010" y="206" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="#EB6834">Reinforcement learning</text>
+<rect x="70" y="250" width="240" height="90" rx="12" fill="#FFFFFF" stroke="#CFD6D2" stroke-width="1.4"/>
+<text x="190" y="289" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" fill="#0E1512">Frontier LLM</text>
+<text x="190" y="316" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400" fill="#65716B">Teacher</text>
+<rect x="890" y="250" width="240" height="90" rx="12" fill="#FFFFFF" stroke="#CFD6D2" stroke-width="1.4"/>
+<text x="1010" y="289" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" fill="#0E1512">LLM agent</text>
+<text x="1010" y="316" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400" fill="#65716B">Student</text>
+<polyline points="310,267 345,267 345,165 590,165" fill="none" stroke="#2A78D6" stroke-width="2" stroke-linejoin="round"/>
+<path d="M590 165 C590 151 610 151 610 165" fill="none" stroke="#2A78D6" stroke-width="2"/>
+<polyline points="610,165 855,165 855,267 890,267" fill="none" stroke="#2A78D6" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="890,267 881.0,263.0 881.0,271.0" fill="#2A78D6"/>
+<text x="450" y="150" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="400" fill="#2A78D6">Supervised training</text>
+<rect x="475" y="250" width="250" height="90" rx="12" fill="#E7F5EE" stroke="#0F7A55" stroke-width="2"/>
+<text x="600" y="288" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="27" font-weight="700" fill="#0F7A55">Strategy</text>
+<text x="600" y="319" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="27" font-weight="700" fill="#0F7A55">selection</text>
+<polyline points="310,310 475,310" fill="none" stroke="#0E1512" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="475,310 466.0,306.0 466.0,314.0" fill="#0E1512"/>
+<text x="392" y="292" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400" fill="#65716B">Candidates</text>
+<polyline points="890,310 725,310" fill="none" stroke="#0E1512" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="725,310 734.0,314.0 734.0,306.0" fill="#0E1512"/>
+<text x="809" y="292" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400" fill="#65716B">Candidates</text>
+<polyline points="600,340 600,420" fill="none" stroke="#0F7A55" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="600,420 604.0,411.0 596.0,411.0" fill="#0F7A55"/>
+<text x="619" y="383" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#0F7A55">Selected strategy</text>
+<rect x="430" y="420" width="340" height="92" rx="12" fill="#FFFFFF" stroke="#CFD6D2" stroke-width="1.4"/>
+<text x="600" y="458" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700" fill="#0E1512">Portfolio implementation</text>
+<text x="600" y="488" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400" fill="#65716B">Option Greeks / Stock hedging</text>
+<polyline points="770,466 1010,466 1010,340" fill="none" stroke="#EB6834" stroke-width="2.2" stroke-linejoin="round"/>
+<polygon points="1010,340 1006.0,349.0 1014.0,349.0" fill="#EB6834"/>
+<text x="881" y="449" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#0E1512">Reward</text>
+<text x="1030" y="387" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#EB6834">Policy</text>
+<text x="1030" y="408" text-anchor="start" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#EB6834">update</text>
+</svg>
