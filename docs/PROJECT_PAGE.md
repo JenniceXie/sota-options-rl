@@ -52,3 +52,11 @@ Curvature, listing all nine strategy families. These are illustrative exposure
 groups, not mutually exclusive risk classifications. Active stages highlight
 the corresponding diagram nodes and step pills. Playback remains 1.8 seconds
 per step; select a step to pause and inspect its contents.
+
+### Rebuild the README animation
+
+The README GIF is rendered directly from the vector diagram at **3000 × 2250**
+pixels, with six stages at 1.8 seconds per stage. After rebuilding the project
+page, run `python scripts/render_walkthrough.py` with Pillow installed. The
+renderer uses Segoe UI fonts; `SOTA_FONT_DIR` can point to their directory.
+`docs/sota_strategy_expanded.png` is a high-resolution still of the selection stage.
