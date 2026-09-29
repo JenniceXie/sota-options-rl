@@ -48,7 +48,7 @@
       current += 1;
       render();
       schedule();
-    }, 5500);
+    }, 1800);
   }
   play.addEventListener('click', () => {
     if (playing) { pause(); return; }
