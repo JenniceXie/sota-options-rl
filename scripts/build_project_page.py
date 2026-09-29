@@ -104,7 +104,7 @@ page = '''<!doctype html>
 <section id="results" aria-labelledby="results-title"><div class="eyebrow">Reported results</div><h2 id="results-title">Six months out of sample.</h2><p class="section-intro">Options on SPY and nine large-cap U.S. equities. Test window: March 3–August 29, 2025. Values below come from the repository's results table.</p>
 <div class="cards"><div class="card"><div class="stat">18.32%</div><div class="stat-label">Total return</div></div><div class="card"><div class="stat">1.60</div><div class="stat-label">Annualized Sharpe ratio</div></div><div class="card"><div class="stat">8.96%</div><div class="stat-label">Maximum drawdown</div></div></div>
 <div class="table-wrap"><table><caption class="sr-only">Test-window comparison of SOTA and five baselines</caption><thead><tr><th scope="col">Policy</th><th scope="col">Total return (%)</th><th scope="col">Sharpe ratio</th><th scope="col">Max. drawdown (%)</th></tr></thead><tbody>{{ROWS}}</tbody></table></div>
-<p class="figure-note">SOTA: Qwen3.8-27B after supervised fine-tuning and reinforcement learning, at RL step 20. <a href="https://github.com/JenniceXie/sota-options-rl/blob/main/results/table1.csv">Full metrics and provenance ↗</a></p>
+<p class="figure-note">SOTA: Qwen3.8-27B after supervised fine-tuning and reinforcement learning. <a href="https://github.com/JenniceXie/sota-options-rl/blob/main/results/table1.csv">Full metrics and provenance ↗</a></p>
 </section>
 <footer>Research code and data documentation: <a href="https://github.com/JenniceXie/sota-options-rl">JenniceXie/sota-options-rl</a>. Visual styling inspired by <a href="https://dreamyang-liu.github.io/STORM/">STORM</a>; figures and page implementation are original to SOTA.</footer>
 </main></body></html>'''
