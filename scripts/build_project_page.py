@@ -35,6 +35,34 @@ for element in diagram:
         key = element.get('points', '').split(' ')[0]
         if key in flow_starts:
             element.set('data-flow', flow_starts[key])
+# The original downloadable Variant A stays unchanged. Only the walkthrough
+# opens its selection node into an exposure map.
+for element in diagram:
+    if element.tag == ns + 'text' and element.get('x') in ('190', '1010') and element.get('y') in ('179', '206'):
+        element.set('data-phase', 'one' if element.get('x') == '190' else 'two')
+    if element.get('y') and float(element.get('y')) >= 383:
+        element.set('data-lower', 'true')
+    if element.tag == ns + 'polygon' and element.get('points', '').startswith('600,420'):
+        element.set('data-lower', 'true')
+
+expansion = ET.SubElement(diagram, ns + 'g', {'id': 'strategy-expansion', 'class': 'strategy-expansion', 'aria-hidden': 'true'})
+ET.SubElement(expansion, ns + 'path', {'d': 'M600 340 V365 M157 365 H1042 M157 365 V385 M452 365 V385 M747 365 V385 M1042 365 V385 M157 559 V580 H1042 V559 M452 559 V580 M747 559 V580', 'fill': 'none', 'stroke': '#0f7a55', 'stroke-width': '2'})
+groups = [
+    ('Direction', 'Up or down', ['Outright (long call / put)', 'Debit vertical', 'Credit vertical'], '0,24 22,24 48,0'),
+    ('Volatility', 'Size of the move', ['Long straddle', 'Long strangle'], '0,0 24,25 48,0'),
+    ('Skewness', 'Asymmetric upside / downside', ['Defined-risk reversal'], '0,24 15,24 25,12 37,12 48,0'),
+    ('Curvature', 'Shape around a target range', ['Butterfly', 'Iron butterfly', 'Iron condor'], '0,24 13,24 24,0 35,24 48,24'),
+]
+for i, (label, subtitle, names, payoff) in enumerate(groups):
+    x = 20 + i * 295
+    group = ET.SubElement(expansion, ns + 'g', {'class': 'exposure-bubble'})
+    ET.SubElement(group, ns + 'rect', {'x': str(x), 'y': '385', 'width': '275', 'height': '174', 'rx': '16', 'fill': '#e7f5ee', 'stroke': '#0f7a55', 'stroke-width': '2'})
+    ET.SubElement(group, ns + 'polyline', {'points': payoff, 'transform': f'translate({x+208} 405)', 'fill': 'none', 'stroke': '#0f7a55', 'stroke-width': '2.5'})
+    for y, text, size, weight, color in [(419, label, 23, '700', '#0f7a55'), (448, subtitle, 14, '400', '#65716b')] + [(478+j*25, name, 17, '500', '#0e1512') for j, name in enumerate(names)]:
+        node = ET.SubElement(group, ns + 'text', {'x': str(x+17), 'y': str(y), 'font-family': 'Segoe UI, Arial, sans-serif', 'font-size': str(size), 'font-weight': weight, 'fill': color})
+        node.text = text
+note = ET.SubElement(expansion, ns + 'text', {'x':'600','y':'765','text-anchor':'middle','font-family':'Segoe UI, Arial, sans-serif','font-size':'14','fill':'#65716b'})
+note.text = 'Nine families grouped by illustrative exposure; individual strategies can span multiple exposures.'
 diagram_markup = ET.tostring(diagram, encoding='unicode')
 
 with (ROOT / 'results/table1.csv').open(encoding='utf-8', newline='') as stream:
@@ -61,7 +89,7 @@ page = '''<!doctype html>
 <img class="banner" src="sota_banner.svg" width="1440" height="420" alt="SOTA — Stock Options Trading Agents. Learn which option strategy to trade. Guided by option-implied return distributions: direction, volatility, skewness, and curvature.">
 <p class="authors">Yizhen Xie · Mengyang Liu</p><div class="affiliations">Carnegie Mellon University · Amazon</div>
 <div class="hero-actions"><a class="button primary" href="#framework">Explore the framework</a><a class="button" href="https://github.com/JenniceXie/sota-options-rl">GitHub repository ↗</a><a class="button" href="https://github.com/JenniceXie/sota-options-rl/blob/main/CITATION.cff">Citation</a></div>
-<p class="intro">A price forecast is only the beginning. <strong>SOTA learns which option strategy to trade</strong>, selecting among nine structured strategy families. Deterministic resolvers handle contracts, sizing, and hedging.</p>
+<p class="intro"><strong>SOTA learns which option strategy to trade.</strong> Its nine strategy families express four kinds of exposure: <strong>direction</strong> (outrights and vertical spreads), <strong>volatility</strong> (straddles and strangles), <strong>skewness</strong> (defined-risk reversals), and <strong>curvature</strong> (butterflies and iron condors). The agent chooses the payoff shape; deterministic resolvers handle contracts, sizing, and hedging.</p>
 </header>
 <section id="framework" aria-labelledby="framework-title"><div class="eyebrow">Framework</div><h2 id="framework-title">From market observations to a trading policy.</h2><p class="section-intro">The teacher provides a starting point. Portfolio rewards refine the student. Follow the six steps to see how the two training phases connect.</p>
 <div class="panel" id="walkthrough"><div class="panel-top"><h3>How SOTA learns strategy selection</h3><div class="controls" role="group" aria-label="Animation controls"><button id="previous" type="button" aria-label="Previous step">←</button><button id="play" type="button" aria-pressed="false">Play</button><button id="next" type="button" aria-label="Next step">→</button></div></div>

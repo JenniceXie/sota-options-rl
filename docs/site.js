@@ -18,9 +18,20 @@
   let current = 0;
   let timer = null;
   let playing = false;
+  const diagram = root.querySelector('.diagram-wrap svg');
+  const expansion = root.querySelector('#strategy-expansion');
   function render() {
     root.dataset.playing = String(playing);
     const step = steps[current];
+    const expanded = current === 3;
+    root.dataset.expanded = String(expanded);
+    root.dataset.stage = String(current);
+    diagram.setAttribute('viewBox', expanded ? '0 0 1200 780' : '0 0 1200 560');
+    diagram.setAttribute('height', expanded ? '780' : '560');
+    expansion.setAttribute('aria-hidden', String(!expanded));
+    root.querySelectorAll('[data-lower]').forEach(el => el.setAttribute('transform', expanded ? 'translate(0 220)' : 'translate(0 0)'));
+    root.querySelector('[data-flow="implementation"]').setAttribute('points', expanded ? '600,580 600,640' : '600,340 600,420');
+    root.querySelector('[data-flow="feedback"]').setAttribute('points', expanded ? '770,686 1192,686 1192,350 1010,350 1010,340' : '770,466 1010,466 1010,340');
     buttons.forEach((button, i) => {
       if (i === current) button.setAttribute('aria-current', 'step');
       else button.removeAttribute('aria-current');
@@ -29,7 +40,7 @@
     root.querySelectorAll('[data-flow]').forEach(el => el.classList.toggle('active', step.flows.includes(el.dataset.flow)));
     root.querySelector('#step-count').textContent = `Step ${current + 1} / ${steps.length}`;
     root.querySelector('#step-title').textContent = step.title;
-    root.querySelector('#step-text').textContent = step.text;
+    root.querySelector('#step-text').textContent = expanded ? 'Strategy selection connects the return distribution to a payoff shape: direction, volatility, skewness, or curvature. The nine families are grouped above by illustrative exposure. The student also specifies the underlying, tenor, and delta coordinates.' : step.text;
     previous.disabled = current === 0;
     next.disabled = current === steps.length - 1;
   }

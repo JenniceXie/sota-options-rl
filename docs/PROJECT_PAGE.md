@@ -45,3 +45,10 @@ folder `/docs`. No deployment is performed by the page builder.
 
 The colors and rounded-card treatment draw on the STORM project-page style.
 The SOTA illustrations and implementation were created for this repository.
+
+The walkthrough keeps the complete Variant A visible initially. At Select,
+it expands the central selector into Direction, Volatility, Skewness, and
+Curvature, listing all nine strategy families. These are illustrative exposure
+groups, not mutually exclusive risk classifications. Active stages highlight
+the corresponding diagram nodes and step pills. Playback remains 1.8 seconds
+per step; select a step to pause and inspect its contents.
