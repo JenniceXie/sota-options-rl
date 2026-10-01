@@ -4,59 +4,61 @@
 
 # SOTA: Stock Options Trading Agents Guided by Option-Implied Return Distributions
 
-[Project page and animated walkthrough](PROJECT_PAGE.md) · [Editable framework figure](sota_framework.svg)
-
 ## Abstract
 
-Agentic option trading requires an autonomous policy to select complex option strategies based on nuanced market conditions. Options give targeted exposure to direction, volatility, skewness, and curvature, but building a position means choosing among thousands of contracts with nonlinear payoffs. We present SOTA (Stock Options Trading Agents), a language-model post-training framework for dynamic option strategy selection. SOTA represents market conditions using features of the option-implied return distribution and selects among nine structured option-strategy families; deterministic resolvers then map each decision to contracts, position sizes, and delta hedges. SOTA is first supervised on frontier-model trading trajectories, generated with stock identity, price levels, and calendar time anonymized to limit leakage, and then optimized through reinforcement learning on portfolio returns net of transaction costs. We evaluate SOTA on options on nine large-cap U.S. equities and SPY against rule-based and machine-learning strategy selectors run in the same trading environment. SOTA earns an 18.3% total return with a Sharpe ratio of 1.60 and an 8.96% maximum drawdown over a six-month out-of-sample period. We also find an asymmetric role of news: news improves frontier-teacher trajectories, but retaining news during reinforcement learning lowers out-of-sample return from 18.3% to −2.7% and more than doubles turnover.
+As option markets grow and AI advances, agentic systems for option trading are gaining increasing attention. Language-model-based agents can reason over contextual information such as news, but option trading presents a particularly challenging decision problem: a single stock can have thousands of contracts, and the agent must decide both which contracts to trade and how to combine them. Existing approaches often sidestep this complexity by restricting the policy to a fixed strategy structure, such as a straddle, limiting their ability to switch strategies as market conditions change. We present SOTA (Stock Options Trading Agents), an agentic trading framework for structured option-strategy selection. SOTA abstracts the large option universe into strategy-level decisions while deterministic resolvers handle portfolio implementation. We develop SOTA by post-training Qwen3.8-27B with supervised fine-tuning followed by reinforcement learning. SOTA is evaluated on options on nine large-cap U.S. equities and SPY against rule-based and machine-learning strategy selectors in the same trading environment. Over a six-month out-of-sample period, SOTA earns an 18.3% total return with a Sharpe ratio of 1.60 and a maximum drawdown of 8.96%. We also document an asymmetric role of news: news improves frontier-teacher trajectories, but retaining news during reinforcement learning reduces out-of-sample return from 18.3% to −2.7%.
 
 ## Motivation
 
-Option trading has expanded rapidly in recent years, with notional turnover
-substantially exceeding that of the underlying equity market, particularly for
-major index products and large-cap stocks. The adoption of AI-assisted and
-agentic trading across financial platforms has created new opportunities for
-agentic option trading. Options nest the directional return-prediction problem of
-equities, and they also give targeted exposure to volatility, skewness and
-curvature. Building an option strategy is hard, though. The investor must choose
-from a large menu of contracts and combine them into positions with complex,
-nonlinear payoffs.
+Option trading has expanded rapidly in recent years, which makes it a natural
+setting for increasingly capable trading agents. Language-model trading systems
+treat financial decision-making as sequential interaction with a market: the
+agent observes market information and its portfolio, then chooses an action such
+as buy, sell or hold. Extending this to options is difficult because the decision
+space is much larger and changes over time. For a single underlying, an agent may
+face thousands of contracts that differ in strike, maturity and option type.
+Existing approaches reduce this complexity either by predicting returns for
+individual contracts or by restricting trading to a single strategy class, such
+as volatility trading, so they do not support dynamic selection across
+heterogeneous payoff structures. Reinforcement learning suits sequential trading
+with transaction costs, discrete rebalancing and portfolio-state dependence, but in
+options it has focused mainly on hedging or on positions within a fixed volatility
+structure such as an at-the-money straddle.
 
-SOTA trains a language model to make the economically interpretable decision:
-which strategy family to trade, on which underlying, at which tenor and delta
-coordinates. Contract selection, position sizing, portfolio implementation and
-hedging are delegated to deterministic, rule-based resolvers. Training has two
-stages. First, a frontier LLM generates trading decisions that supervise a
-smaller language model. It sees structured market states and contemporaneous
-news, with stock identity, absolute price levels and calendar time anonymized.
-Reinforcement learning then refines the smaller model in a portfolio
-environment, rewarding portfolio performance net of transaction costs.
+SOTA separates strategy-level reasoning from contract-level implementation. The
+language model selects one of nine economically meaningful strategy families and
+its parameters, and deterministic resolvers map each decision into exact
+contracts, position sizes and hedges. This interface reduces the decision space
+without restricting the agent to a single payoff structure, and the policy can
+combine structured market information with contextual signals such as news.
 
 Contributions:
 
-* **A post-training framework for option trading.** The agent selects among a
-  range of option-strategy families, trained by supervised fine-tuning and then
-  reinforcement learning.
-* **Point-in-time features for option strategy selection,** including features
-  of the option-implied return distribution. A news pipeline uses contemporaneous
-  news to construct frontier-model supervision while controlling the information
-  available at each decision time.
-* **A structured action space.** The language model issues high-level strategy
-  decisions, and deterministic resolvers handle contract selection, position
-  sizing, portfolio implementation and hedging. This keeps the decision problem
-  small even though thousands of option contracts are available.
-* **An asymmetric role of news across training stages.** News improves the
-  frontier teacher's trading decisions, but retaining the news pipeline during
-  reinforcement learning does not improve out-of-sample portfolio performance.
+* **Option trading as structured strategy selection.** The agent selects among
+  nine strategy families and their parameters instead of individual contracts,
+  and deterministic resolvers map each decision into contracts, position sizes and
+  hedges. The resulting strategy space is compact and spans directional,
+  volatility, skew and curvature trades.
+* **A point-in-time trading environment and a two-stage post-training recipe.**
+  The state summarizes the option-implied return distribution. Qwen3.8-27B is
+  trained by supervised fine-tuning on anonymized frontier-model trajectories,
+  followed by reinforcement learning on portfolio returns net of transaction
+  costs.
+* **Out-of-sample results.** Over a six-month out-of-sample period on options on
+  nine large-cap U.S. stocks and SPY, SOTA earns an 18.3% total return with a
+  Sharpe ratio of 1.60, while all rule-based and machine-learning baselines
+  generate negative returns. Ablations show that reinforcement learning improves
+  on supervised fine-tuning alone, and that news helps the frontier teacher but
+  degrades performance when retained during reinforcement learning.
 
-![Overview of the SOTA framework](sota_framework.svg)
+![From contract-level to strategy-level decisions: instead of choosing among thousands of listed contracts, the SOTA agent selects one of nine option-strategy families, and deterministic tools resolve it into contracts, a position size and hedge trades](contract_to_strategy.png)
 
-*Overview of the SOTA framework. A frontier LLM uses structured market states and
-contemporaneous news to generate supervised trading trajectories. The smaller
-language model is initialized through supervised fine-tuning and subsequently
-optimized through reinforcement learning in the portfolio environment. The agent
-selects option strategies and their parameters, while deterministic resolvers map
-these decisions into executable portfolio positions. The feedback arrow summarizes reward computation and policy optimization. News is used for teacher supervision; the reported RL policy uses market states only.*
+*From contract-level to strategy-level decisions. Left: at the contract level, an
+agent must choose among thousands of listed contracts that differ in strike,
+expiry, and call/put type. Right: SOTA instead has the agent select one of nine
+option-strategy families and its parameters (here, a long straddle), and
+deterministic tools resolve that choice into exact contracts, a position size,
+and hedge trades.*
 
 ## Repository structure
 
@@ -81,7 +83,8 @@ configs/
 examples/                   input schemas and a synthetic trajectory
 results/                    results table and per-checkpoint metrics
 tests/                      corpus-equivalence test and a concurrency benchmark
-docs/                       data layout, provenance notes and the overview figure
+docs/                       this documentation, data layout, provenance notes, figures
+                            and the project page
 ```
 
 ## Results
@@ -102,6 +105,7 @@ Test-window performance:
 | Threshold rule | −28.46 | −1.95 | −1.50 | −3.50 | 35.20 | 33.16 | 41.31 | 1.89 |
 | GBDT | −49.78 | −8.55 | −1.52 | −8.18 | 16.51 | 49.78 | 24.07 | 1.23 |
 | Logistic | −55.45 | −11.63 | −1.46 | −9.70 | 14.24 | 55.47 | 20.42 | 1.00 |
+| Oracle (hindsight reference) | 608.31 | 6.28 | 740.22 | 35.87 | 63.91 | 7.32 | — | — |
 
 SOTA is Qwen3.8-27B after supervised fine-tuning and then reinforcement learning
 on market states only. TR is total return. ASR, ACR and ASoR are
@@ -109,6 +113,11 @@ the annualized Sharpe, Calmar and Sortino ratios. AVOL is annualized volatility
 and MDD is maximum drawdown. WR is the fraction of completed trades with positive
 profit, and PLR is the average profit of winning trades relative to the average
 loss of losing trades.
+
+The oracle is a hindsight reference, not a tradable policy. At each decision time
+it selects the best-performing strategy from the same candidate set using realized
+future outcomes, under the same transaction costs, sizing rule, position limits
+and hedging rule as the other policies.
 
 The baselines:
 
@@ -188,7 +197,7 @@ expiry. Volatilities are annualized.
 | `ts` | term structure | $\sigma^{\mathrm{iv}}_t(0.50\mathrm{C},90)-\sigma^{\mathrm{iv}}_t(0.50\mathrm{C},30)$ |
 | `sk` | skewness | $\sigma^{\mathrm{iv}}_t(0.25\mathrm{P},30)-\sigma^{\mathrm{iv}}_t(0.25\mathrm{C},30)$ |
 | `bf` | curvature | $\tfrac{1}{2}\left[\sigma^{\mathrm{iv}}_t(0.25\mathrm{P},30)+\sigma^{\mathrm{iv}}_t(0.25\mathrm{C},30)\right]-\mathrm{iv}_t$, the 30-day 25-delta butterfly |
-| `fi` | option flow imbalance | $`\sum_k q_k\,\mathrm{sign}_k\lvert\Delta_k\rvert \,/\, \sum_k q_k\lvert\Delta_k\rvert`$ over option trades $k$ printed between the session open and the decision, with $\mathrm{sign}_k$ the inferred trade direction |
+| `fi` | option flow imbalance | $`\sum_k q_k\,\mathrm{sign}_k\lvert\Delta_k\rvert \,/\, \sum_k q_k\lvert\Delta_k\rvert`$ over option trades $k$ printed between the session open and the decision, with $\mathrm{sign}_k$ the inferred trade direction: trades above (below) the quote midpoint are buyer- (seller-) initiated, and midpoint trades take the direction of the most recent price change, following Lee and Ready (1991) |
 | `doi` | change in open interest | $`(\mathrm{OI}_t-\mathrm{OI}_{t-1})/\mathrm{OI}_{t-1}`$ |
 
 **Point in time.** Each raw or derived record carries three timestamps: when the
@@ -230,7 +239,8 @@ structure is preserved.
 
 **Supervised trajectories.** A frontier teacher runs the full environment over
 the supervised window, through the same harness the policy is evaluated in,
-producing one trajectory per month-long episode. Trajectories must pass an
+producing one trajectory per month-long episode. The portfolio (cash, open
+positions and value) carries over from one month to the next. Trajectories must pass an
 **outcome gate** before any token is trained on: a threshold on the risk-adjusted
 return and drawdown of the whole trajectory, not of individual decisions.
 Episodes exceeding the token budget are dropped at corpus-build time.
@@ -283,7 +293,8 @@ pip install -e '.[chain]'
 ```
 
 Optional extras: `baselines` for the GBDT and Logistic baselines, and `dev` for
-the tests. RL training additionally uses veRL 0.7.1 and vLLM 0.11.0.
+the tests. Supervised fine-tuning and reinforcement learning additionally use
+veRL 0.9.1, and RL rollouts use vLLM 0.24.0.
 
 ## Citation
 

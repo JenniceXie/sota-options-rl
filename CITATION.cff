@@ -2,25 +2,26 @@ cff-version: 1.2.0
 message: "If you use this code, please cite the paper."
 title: "SOTA: Stock Options Trading Agents Guided by Option-Implied Return Distributions"
 abstract: >-
-  Agentic option trading requires an autonomous policy to select complex option
-  strategies based on nuanced market conditions. Options give targeted exposure
-  to direction, volatility, skewness, and curvature, but building a position
-  means choosing among thousands of contracts with nonlinear payoffs. We present
-  SOTA (Stock Options Trading Agents), a language-model post-training framework
-  for dynamic option strategy selection. SOTA represents market conditions using
-  features of the option-implied return distribution and selects among nine
-  structured option-strategy families; deterministic resolvers then map each
-  decision to contracts, position sizes, and delta hedges. SOTA is first
-  supervised on frontier-model trading trajectories, generated with stock
-  identity, price levels, and calendar time anonymized to limit leakage, and
-  then optimized through reinforcement learning on portfolio returns net of
-  transaction costs. We evaluate SOTA on options on nine large-cap U.S. equities
-  and SPY against rule-based and machine-learning strategy selectors run in the
-  same trading environment. SOTA earns an 18.3% total return with a Sharpe ratio
-  of 1.60 and an 8.96% maximum drawdown over a six-month out-of-sample period.
-  We also find an asymmetric role of news: news improves frontier-teacher
-  trajectories, but retaining news during reinforcement learning lowers
-  out-of-sample return from 18.3% to −2.7% and more than doubles turnover.
+  As option markets grow and AI advances, agentic systems for option trading are
+  gaining increasing attention. Language-model-based agents can reason over
+  contextual information such as news, but option trading presents a
+  particularly challenging decision problem: a single stock can have thousands
+  of contracts, and the agent must decide both which contracts to trade and how
+  to combine them. Existing approaches often sidestep this complexity by
+  restricting the policy to a fixed strategy structure, such as a straddle,
+  limiting their ability to switch strategies as market conditions change. We
+  present SOTA (Stock Options Trading Agents), an agentic trading framework for
+  structured option-strategy selection. SOTA abstracts the large option universe
+  into strategy-level decisions while deterministic resolvers handle portfolio
+  implementation. We develop SOTA by post-training Qwen3.8-27B with supervised
+  fine-tuning followed by reinforcement learning. SOTA is evaluated on options
+  on nine large-cap U.S. equities and SPY against rule-based and
+  machine-learning strategy selectors in the same trading environment. Over a
+  six-month out-of-sample period, SOTA earns an 18.3% total return with a Sharpe
+  ratio of 1.60 and a maximum drawdown of 8.96%. We also document an asymmetric
+  role of news: news improves frontier-teacher trajectories, but retaining news
+  during reinforcement learning reduces out-of-sample return from 18.3% to
+  −2.7%.
 authors:
   - family-names: Xie
     given-names: Yizhen
